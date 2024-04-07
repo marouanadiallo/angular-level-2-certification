@@ -48,7 +48,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
         this._subscription.add(
             this.filters.valueChanges.subscribe(filters => {
                 this.movies$ = this._moviesService.movies$.pipe(
-                    map(movies => this._filterByTitleAndRelease(movies, filters.title || '', filters.releaseYear || ''))
+                    map(movies => this._moviesService
+                                        .filterByTitleAndRelease(movies, filters.title || '', filters.releaseYear || ''))
                 );
             })
         );
@@ -57,24 +58,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this._subscription.unsubscribe();
     }
-    public showDetails(id: string): void {
-        this._router.navigate(['.', id], { relativeTo: this._route });
-    }
 
-    private _filterByTitleAndRelease(movies: Movie[], title: string, releaseYear: string) {
-
-        let moviesfilterResult: Movie[] = [];
-        if(title && releaseYear) {
-            moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()) && 
-                                                        movie.release_date.split("-")[0] === releaseYear );
-        } else if(releaseYear) {
-            moviesfilterResult = moviesfilterResult.filter(movie => movie.release_date.split("-")[0] === releaseYear); 
-        } else if(title) {
-            moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
-        } else {
-            moviesfilterResult = movies;
-        }
-
-        return moviesfilterResult;
+    public async showDetails(id: string) {
+        await this._router.navigate(['.', id], { relativeTo: this._route });
     }
 }

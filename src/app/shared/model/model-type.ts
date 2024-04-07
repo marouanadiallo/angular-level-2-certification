@@ -1,7 +1,7 @@
 declare type Movie = {
     id: string,
     title: string,
-    duration: number,
+    duration: number| string,
     budget: string | number,
     release_date: string,
     box_office: string,

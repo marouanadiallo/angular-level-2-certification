@@ -27,15 +27,28 @@ export class MoviesService {
         return this.http.get<Movie>(`/movies/${id}`);
     }
 
+    public filterByTitleAndRelease(movies: Movie[], title: string, releaseYear: string) {
+
+        let moviesfilterResult: Movie[] = [];
+        if(title && releaseYear) {
+            moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()) && 
+                                                        movie.release_date.split("-")[0] === releaseYear );
+        } else if(releaseYear) {
+            moviesfilterResult = moviesfilterResult.filter(movie => movie.release_date.split("-")[0] === releaseYear); 
+        } else if(title) {
+            moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
+        } else {
+            moviesfilterResult = movies;
+        }
+
+        return moviesfilterResult;
+    }
+
     private errorHandler(error: HttpErrorResponse): Observable<Movie[]> {
         if (error.status === 0) {
-            // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error);
         } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong.
-            console.error(
-                `Backend returned code ${error.status}, body was: `, error.error);
+            console.error(`Backend returned code ${error.status}, body was: `, error.error);
         }
         return of([]);
     }
