@@ -1,0 +1,34 @@
+<ng-container *ngIf="movies$ | async as movies" else="loading">
+
+    <form [formGroup]="filters">
+        <h5>Filters</h5>
+        <div class="input-filters">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" formControlName="title">
+            </div>
+    
+            <div>
+                <label for="releaseYear">Release year</label>
+                <input type="text" name="releaseYear" id="releaseYear" formControlName="releaseYear">
+            </div>
+        </div>
+    </form>
+
+    <app-movie-item *ngFor="let movie of movies" 
+        [movie]="movie"
+        (showDetailsEvent)="showDetails($event)"
+    >
+    </app-movie-item>
+
+    <ng-container *ngIf="movies.length === 0">
+        <div>No movies found !</div>
+    </ng-container>
+
+</ng-container>
+
+<ng-template #loading>
+    <div>
+        <span>Movies loading... </span>
+    </div>
+</ng-template>

@@ -1,0 +1,12 @@
+:host {
+    display: block;
+}
+form {
+    border: 1px solid rgba(255, 255, 255, .12);
+}
+.input-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+}

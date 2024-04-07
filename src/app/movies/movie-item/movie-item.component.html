@@ -1,0 +1,15 @@
+<ng-container *ngIf="movie">
+    <div class="movie-container">
+        <div class="info">
+            <h4>{{movie.title}}</h4>
+            <div class="hints">
+                <span>Release date : {{ movie.release_date }}</span>
+                <span>Budget : {{ movie.budget | formatBudget }} </span>
+                <span>Duration : {{ movie.duration | toDuration }}</span>
+            </div>
+        </div>
+        <div class="details-btn">
+            <button (click)="showDetails(movie)">Details</button>
+        </div>
+    </div>
+</ng-container>

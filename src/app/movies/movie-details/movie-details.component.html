@@ -1,0 +1,47 @@
+<div class="back-to-home">
+    <button routerLink="/">
+        <img ngSrc="assets/home.png" width="28" height="28" alt="home icon">
+        <span>Back to home</span>
+    </button>
+</div>
+<ng-container *ngIf="movie$ | async as movie">
+    <h2>{{ movie.title }}</h2>
+    <div class="poster-summary">
+        <div>
+            <img ngSrc="{{movie.poster}}" width="1200" height="1000" alt="movie poster">
+        </div>
+        <div>
+            <p>
+                <strong>Summary</strong> : {{movie.summary}}
+            </p>
+        </div>
+    </div>
+    <h6>Details</h6>
+    <ul>
+        <li>
+            <span>Box office</span>
+            <span>{{ movie.box_office | formatBudget }}</span>
+        </li>
+        <li>
+            <span>Budget</span>
+            <span>{{ movie.budget | formatBudget }}</span>
+        </li>
+        <li>
+            <span>Duration</span>
+            <span>{{ movie.duration | toDuration }}</span>
+        </li>
+        <li>
+            <span>Producers</span>
+            <span>{{ movie.producers }}</span>
+        </li>
+        <li>
+            <span>Cinematographers</span>
+            <span>{{ movie.cinematographers }}</span>
+        </li>
+    </ul>
+</ng-container>
+
+<ng-container *ngIf="!(movie$ | async)">
+    <div>Movie not found</div>
+</ng-container>
+
