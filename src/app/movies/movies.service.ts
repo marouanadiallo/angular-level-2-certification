@@ -34,7 +34,7 @@ export class MoviesService {
             moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()) && 
                                                         movie.release_date.split("-")[0] === releaseYear );
         } else if(releaseYear) {
-            moviesfilterResult = moviesfilterResult.filter(movie => movie.release_date.split("-")[0] === releaseYear); 
+            moviesfilterResult = movies.filter(movie => movie.release_date.split("-")[0] === releaseYear); 
         } else if(title) {
             moviesfilterResult = movies.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
         } else {

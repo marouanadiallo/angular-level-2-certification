@@ -49,7 +49,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
             this.filters.valueChanges.subscribe(filters => {
                 this.movies$ = this._moviesService.movies$.pipe(
                     map(movies => this._moviesService
-                                        .filterByTitleAndRelease(movies, filters.title || '', filters.releaseYear || ''))
+                                    .filterByTitleAndRelease(movies, filters.title || '', filters.releaseYear || ''))
                 );
             })
         );
@@ -62,4 +62,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
     public async showDetails(id: string) {
         await this._router.navigate(['.', id], { relativeTo: this._route });
     }
+
+    
 }
